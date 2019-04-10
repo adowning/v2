@@ -1,1 +1,1 @@
-# VueParse Example
+# [VueParse Example](https://exeteres.github.io/vue-parse-example/)
