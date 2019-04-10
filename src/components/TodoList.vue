@@ -23,11 +23,6 @@ export default Vue.extend({
             subscribe: true
         })
     },
-    mounted() {
-        global["test"] = () => {
-            return this.todos;
-        };
-    },
     methods: {
         remove(todo: Todo) {
             try {

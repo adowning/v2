@@ -7429,10 +7429,10 @@ vue-loader@^15.6.4:
     vue-hot-reload-api "^2.3.0"
     vue-style-loader "^4.1.0"
 
-vue-parse@^0.0.5:
-  version "0.0.5"
-  resolved "https://registry.npmjs.org/vue-parse/-/vue-parse-0.0.5.tgz#99f5fbad63bdaf87d53f605947bef833f919ebc4"
-  integrity sha512-b+w7Mhxt5B2/SQdZucN8wW1Hmq1cvok/ol/Lqb+VeHJ+yn0WQUnLSyLMfBKsFpuK16da9dU74zjN938vZtHKLg==
+vue-parse@^0.0.6:
+  version "0.0.6"
+  resolved "https://registry.npmjs.org/vue-parse/-/vue-parse-0.0.6.tgz#ccdf21b173f31d7b59b526b7e60860630c6a0894"
+  integrity sha512-YwM9FM76JpWaoiJwYtNFAKygQ/0rWzHyDRNktBkOQ7ZrhX7JvI6s/rPrpM9iMAuquFohHpMt0e184CtOZKDscA==
   dependencies:
     parse "^2.3.2"
     vue "^2.6.10"
