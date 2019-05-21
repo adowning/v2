@@ -11,39 +11,39 @@
 
 <script lang="ts">
 import Vue from "vue";
+import { Component } from "vue-property-decorator";
+
 import { User } from "parse";
 import toastr from "toastr";
-export default Vue.extend({
-    data() {
-        return {
-            user: {
-                name: "",
-                pass: ""
-            }
-        };
-    },
-    methods: {
-        async login() {
-            try {
-                await User.logIn(this.user.name, this.user.pass);
-                this.$emit("login");
-                toastr.success(`Successfully authorized`);
-            } catch (e) {
-                toastr.error(`Authorization error: ${e.message}`);
-            }
-        },
-        async create() {
-            try {
-                const user = new User();
-                user.setUsername(this.user.name);
-                user.setPassword(this.user.pass);
-                await user.save();
-                this.login();
-                toastr.success(`Successfully registered`);
-            } catch (e) {
-                toastr.error(`Registration error: ${e.message}`);
-            }
+
+@Component({})
+export default class LoginForm extends Vue {
+    user = {
+        name: "",
+        pass: ""
+    };
+
+    async login() {
+        try {
+            await this.$parse.logIn(this.user.name, this.user.pass);
+            this.$emit("login");
+            toastr.success(`Successfully authorized`);
+        } catch (e) {
+            toastr.error(`Authorization error: ${e.message}`);
         }
     }
-});
+
+    async create() {
+        try {
+            const user = new User();
+            user.setUsername(this.user.name);
+            user.setPassword(this.user.pass);
+            await user.save();
+            this.login();
+            toastr.success(`Successfully registered`);
+        } catch (e) {
+            toastr.error(`Registration error: ${e.message}`);
+        }
+    }
+}
 </script>

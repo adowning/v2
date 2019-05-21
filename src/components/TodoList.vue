@@ -13,34 +13,39 @@
 
 <script lang="ts">
 import Vue from "vue";
-import { extend } from "vue-parse";
+import { Component } from "vue-property-decorator";
+
 import Todo from "@/models/Todo";
+
 import toastr from "toastr";
-export default Vue.extend({
+import { extend } from "vue-parse";
+
+@Component({
     parse: {
         todos: extend({
             object: Todo,
             subscribe: true
         })
-    },
-    methods: {
-        remove(todo: Todo) {
-            try {
-                todo.destroy();
-                toastr.success(`${todo.id} successfully deleted`);
-            } catch (e) {
-                toastr.error(`Error while deleting todo: ${e.message}`);
-            }
-        },
-        update(todo: Todo, state: boolean) {
-            try {
-                todo.finished = state;
-                todo.save();
-                toastr.success(`${todo.id} successfully updated`);
-            } catch (e) {
-                toastr.error(`Error while updating todo: ${e.message}`);
-            }
+    }
+})
+export default class extends Vue {
+    remove(todo: Todo) {
+        try {
+            todo.destroy();
+            toastr.success(`${todo.id} successfully deleted`);
+        } catch (e) {
+            toastr.error(`Error while deleting todo: ${e.message}`);
         }
     }
-});
+
+    update(todo: Todo, state: boolean) {
+        try {
+            todo.finished = state;
+            todo.save();
+            toastr.success(`${todo.id} successfully updated`);
+        } catch (e) {
+            toastr.error(`Error while updating todo: ${e.message}`);
+        }
+    }
+}
 </script>

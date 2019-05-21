@@ -8,24 +8,24 @@
 
 <script lang="ts">
 import Vue from "vue";
+import { Component } from "vue-property-decorator";
+
 import Todo from "@/models/Todo";
-import { User, Cloud } from "parse";
+
 import toastr from "toastr";
-export default Vue.extend({
-    data() {
-        return {
-            todo: { title: "" }
-        };
-    },
-    methods: {
-        async create() {
-            try {
-                const todo = await Cloud.run("createTodoForUser", this.todo);
-                toastr.success(`${todo.id} successfully created`);
-            } catch (e) {
-                toastr.error(`Error while creating todo: ${e.message}`);
-            }
+import { User, Cloud } from "parse";
+
+@Component({})
+export default class TodoForm extends Vue {
+    todo = { title: "" };
+
+    async create() {
+        try {
+            const todo = await this.$parse.run("createTodoForUser", this.todo);
+            toastr.success(`${todo.id} successfully created`);
+        } catch (e) {
+            toastr.error(`Error while creating todo: ${e.message}`);
         }
     }
-});
+}
 </script>

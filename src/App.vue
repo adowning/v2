@@ -16,29 +16,25 @@
 
 <script lang="ts">
 import Vue from "vue";
-import { User } from "parse";
-import { extend } from "vue-parse";
+import { Component } from "vue-property-decorator";
+
 import Todo from "@/models/Todo";
+
 import TodoList from "@/components/TodoList.vue";
 import TodoForm from "@/components/TodoForm.vue";
 import LoginForm from "@/components/LoginForm.vue";
 
-export default Vue.extend({
-    data() {
-        return {
-            user: User.current(),
-            todo: ""
-        };
-    },
-    components: { TodoList, TodoForm, LoginForm },
-    methods: {
-        onlogin() {
-            this.user = User.current();
-        },
-        async logout() {
-            await User.logOut();
-            this.user = User.current();
-        }
+@Component({ components: { TodoList, TodoForm, LoginForm } })
+export default class App extends Vue {
+    user = this.$parse.user;
+
+    onlogin() {
+        this.user = this.$parse.user;
     }
-});
+
+    async logout() {
+        await this.$parse.logOut();
+        this.user = null;
+    }
+}
 </script>

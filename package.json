@@ -10,8 +10,8 @@
         "core-js": "^2.6.5",
         "vue": "^2.6.6",
         "vue-class-component": "^6.0.0",
-        "vue-parse": "^0.0.6",
-        "vue-property-decorator": "^8.0.0"
+        "vue-parse": "^0.1.0",
+        "vue-property-decorator": "^8.1.1"
     },
     "devDependencies": {
         "@types/parse": "^2.2.2",
