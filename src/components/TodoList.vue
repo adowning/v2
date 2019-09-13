@@ -1,14 +1,33 @@
-<template lang="pug">
-    el-table(:data="todos" style="width: 100%")
-        el-table-column(prop="id" label="Id")
-        el-table-column(prop="title" label="Title")
-        el-table-column(label="Finished")
-            el-checkbox(slot-scope="todo" 
-                v-model="todo.row.finished" 
-                @change="update(todo.row, arguments[0])")
-        el-table-column(label="Operations" fixed="right")
-            template(slot-scope="todo")
-                el-button(size="mini" type="danger" @click="remove(todo.row)") Delete
+<template>
+<div>
+   <v-data-table
+    v-model="selected"
+    item-key="id"
+    :headers="headers"
+    :items="todos"
+    :items-per-page="5"
+     show-select
+    class="elevation-1"
+     single-select="false"
+
+  >
+    <template  v-slot:item.data-table-select="{ item, select }">
+        <v-simple-checkbox color="green" :value="item.finished" @input="update(item, $event)"></v-simple-checkbox>
+      </template>
+         <template v-slot:item.id="{ item }">
+        {{ item.author.attributes.username }}
+      </template>
+        <template v-slot:item.author="{ item }">
+        {{ item.author.attributes.username }}
+      </template>
+       <template v-slot:item.finished="item">
+     
+             <v-checkbox v-model="item.finished" :value="item.finished" ></v-checkbox>
+          
+      </template>
+  
+  </v-data-table>
+</div>
 </template>
 
 <script lang="ts">
@@ -24,11 +43,24 @@ import { extend } from "vue-parse";
     parse: {
         todos: extend({
             object: Todo,
-            subscribe: true
+            subscribe: true,
+            // result: r => r.author.getUsername()
         })
+        
     }
 })
 export default class extends Vue {
+    data () {
+      return {
+headers:  [
+    { text: 'title', align: 'center', sortable: false, value: 'title' },
+    { text: 'author', align: 'center', sortable: false, value: 'author' },
+    // { text: 'finished', align: 'center', sortable: false, value: 'finished' }
+  ],
+  selected:[]
+     
+      }}
+
     remove(todo: Todo) {
         try {
             todo.destroy();

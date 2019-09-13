@@ -1,25 +1,12 @@
-Parse.Cloud.define("createTodoForUser", (request, response) => {
-    if (!request.user) {
-        response.error("Unathorized");
-        return;
-    }
-    const Todo = Parse.Object.extend("Todo");
-    const todo = new Todo();
-    todo.set("author", request.user);
-    todo.set("title", request.params.title);
-    todo.set("finished", false);
-    todo.save(null, {
-        useMasterKey: true,
-        success(result) {
-            response.success(result);
-        },
-        error(error) {
-            response.error(
-                "Error while creating todo " +
-                    error.code +
-                    " - " +
-                    error.description
-            );
-        }
-    });
-});
+//In cloud/main.js
+var cloudFunctions = require('./functions')
+
+Parse.Cloud.define('registerUser', cloudFunctions.registerUser(Parse))
+Parse.Cloud.beforeSave('employeeProfile', cloudFunctions.employeeProfile(Parse))
+Parse.Cloud.define(
+  'SMScheckEmployeeClockStatus',
+  cloudFunctions.SMScheckEmployeeClockStatus(Parse)
+)
+Parse.Cloud.define('SMSclockInUser', cloudFunctions.SMSclockInUser(Parse))
+Parse.Cloud.define('SMSclockOutUser', cloudFunctions.SMSclockOutUser(Parse))
+

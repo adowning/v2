@@ -19,7 +19,7 @@
                 dark
                 flat
               >
-                <v-toolbar-title>Login form</v-toolbar-title>
+                <v-toolbar-title>Profile</v-toolbar-title>
                 <div class="flex-grow-1"></div>
              
               

@@ -1,9 +1,35 @@
-<template lang="pug">
-    el-form(:inline="true" :model="todo")
-        el-form-item(label="Title")
-            el-input(v-model="todo.title")
-        el-form-item
-            el-button(@click="create()") Create
+<template >
+            <div>
+               <v-card class="elevation-12">
+              <v-toolbar
+                color="primary"
+                dark
+                flat
+              >
+                <v-toolbar-title>Login form</v-toolbar-title>
+                <div class="flex-grow-1"></div>
+             
+              
+              </v-toolbar>
+              <v-card-text>
+                <v-form>
+                  <v-text-field
+                  v-model="todo.title"
+                    label="Title"
+                    name="title"
+                    prepend-icon="mdi-face"
+                    type="text"
+                  ></v-text-field>
+
+                </v-form>
+              </v-card-text>
+              <v-card-actions>
+                <div class="flex-grow-1"></div>
+                <v-btn color="primary"@click="create()">Create</v-btn>
+              </v-card-actions>
+            </v-card>
+
+            </div>
 </template>
 
 <script lang="ts">
