@@ -9,32 +9,28 @@ const router = new Router({
   mode: 'history',
   routes: [
     {
-      path: '/',
-      redirect: '/profile'
-    },
-    {
       path: '/login',
       name: 'login',
       component: Login
     },
     {
-        path: '/profile:id',
-        name: 'profile',
-        component: () => import('./components/Profile.vue'),
-        props: true,
-      meta: {
-        requiresAuth: true
-      }
-      },
-
-    // {
-    //   path: '/sessions/:view?',
-    //   name: 'talks',
-    //   component: Sessions,
-    //   meta: {
-    //     requiresAuth: true
-    //   }
-    // },
+      path: '/',
+      name: 'profile',
+      component: () => import('./components/Profile.vue'),
+      props: true,
+    meta: {
+      requiresAuth: true
+    }
+    },
+    {
+      path: '/',
+      name: 'register',
+      component: () => import('./components/RegisterForm.vue'),
+      props: true,
+    meta: {
+      requiresAuth: true
+    }
+  }
     // {
     //   path: '/sessions/:id/detail',
     //   name: 'details',
@@ -82,9 +78,17 @@ const router = new Router({
 
 router.beforeEach((to, from, next) => {
 //   const currentUser = firebase.auth().currentUser;
-console.log(router.app.$parse)
-  const currentUser =  router.app.$parse.user;
+var currentUser;
+
+try{
+   currentUser =  router.app.$parse.user;
+}catch(e){
+  console.log('still loading ...')
+}
   const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
+  console.log(requiresAuth)
+  console.log(currentUser)
+
   // TODO: firebase.auth().currentUser is null when the page reloads
   //        Need to wrap in a promise and not resolve until callback comes back.
 

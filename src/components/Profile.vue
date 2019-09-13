@@ -1,139 +1,151 @@
-<template >
-<v-content>
-      <v-container
-        class="fill-height"
-        fluid
+<template>
+    <v-container fluid>
+         <v-row
+      
+      :key="n"
+      :class="n === 1 ? 'mb-6' : ''"
+      no-gutters
+    >
+      <v-col
       >
-        <v-row
-          align="center"
-          justify="center"
-        >
-          <v-col
-            cols="12"
-            sm="8"
-            md="4"
-          >
-            <v-card class="elevation-12" >
-              <v-toolbar
-                color="primary"
-                dark
-                flat
-              >
-                <v-toolbar-title>Profile</v-toolbar-title>
-                <div class="flex-grow-1"></div>
-             
-              
-              </v-toolbar>
-              <v-card-text>
-                <v-form>
-                  <v-text-field
-                  id="name"
-                  v-model="user.name"
-                    label="Login"
-                    name="name"
-                    prepend-icon="mdi-face"
-                    type="text"
-                  ></v-text-field>
-
-                  <v-text-field
-                    id="pass"
-                v-model="user.pass"
-
-                    label="Password"
-                    name="pass"
-                    prepend-icon="mdi-lock"
-                    type="password"
-                  ></v-text-field>
-                </v-form>
-              </v-card-text>
-              <v-card-actions>
-                <v-btn color="primary" @click="router.push({ path: 'home' })">Register</v-btn>
-
-                <div class="flex-grow-1"></div>
-                <v-btn color="primary" @click="login">Login</v-btn>
-              </v-card-actions>
+        <v-layout column>
+            <v-card>
+                <v-card-text>
+                    <v-flex class="mb-4">
+                        <v-avatar size="96" class="mr-4">
+                            <img :src="'/avatars/avatar_' + (form.avatar.toLowerCase()) + '.png'" alt="Avatar">
+                        </v-avatar>
+                        <v-btn @click="openAvatarPicker">Change Avatar</v-btn>
+                    </v-flex>
+                    <v-text-field
+                        v-model="form.firstName"
+                        label="FirstName"></v-text-field>
+                    <v-text-field
+                        v-model="form.lastName"
+                        label="Last Name"></v-text-field>
+                    <v-text-field
+                        v-model="form.contactEmail"
+                        label="Email Address"></v-text-field>
+                </v-card-text>
+                <v-card-actions>
+                    <v-btn color="primary" :loading="loading" @click.native="update">
+                        <v-icon left dark>check</v-icon>
+                        Save Changes
+                    </v-btn>
+                </v-card-actions>
             </v-card>
-            <!-- <v-card class="elevation-12" v-else>
-              <v-toolbar
-                color="primary"
-                dark
-                flat
-              >
-                <v-toolbar-title>Registration form</v-toolbar-title>
-                <div class="flex-grow-1"></div>
-              </v-toolbar>
-              <v-card-text>
-                <v-form>
-                  <v-text-field
-                  id="name"
-                  v-model="user.name"
-                    label="Login"
-                    name="name"
-                    prepend-icon="mdi-face"
-                    type="text"
-                  ></v-text-field>
+        </v-layout>
+        <avatar-picker
+            v-model="showAvatarPicker"
+            :current-avatar="form.avatar"
+            @selected="selectAvatar"></avatar-picker>
+     </v-col>
+      <v-col>
 
-                  <v-text-field
-                    id="pass"
-                v-model="user.pass"
+          <template>
 
-                    label="Password"
-                    name="pass"
-                    prepend-icon="mdi-lock"
-                    type="password"
-                  ></v-text-field>
-                </v-form>
-              </v-card-text>
-              <v-card-actions>
-                <div class="flex-grow-1"></div>
-                <v-btn color="primary" @click="login">Login</v-btn>
-              </v-card-actions>
-            </v-card> -->
-          </v-col>
-        </v-row>
-      </v-container>
-    </v-content>
+
+      <v-timeline
+        align-top-right
+        align-right
+        dense
+      >
+        <v-timeline-item
+          color="green"
+          small
+        >
+          <!-- <v-row class="pt-1">
+            <v-col cols="2">
+              <strong>8:05am</strong>
+            </v-col>
+            <v-col>
+              <strong>Friday 08/09</strong>
+             <div class="caption">Mobile App</div> 
+            </v-col>
+          </v-row> -->
+<v-row justify="space-between">
+            <v-col cols="7" ><strong>Clock In</strong></v-col>
+            <v-col class="text-right" cols="5">08:04 EDT</v-col>
+          </v-row>
+        </v-timeline-item>
+   <v-timeline-item
+          v-for="event in timeline"
+          :key="event.id"
+          class="mb-4"
+          color="blue"
+          small
+        >
+          <v-row justify="space-between">
+            <v-col cols="7" v-text="event.text"></v-col>
+            <v-col class="text-right" cols="5" v-text="event.time"></v-col>
+          </v-row>
+        </v-timeline-item>
+        <v-timeline-item
+          color="red"
+          small
+        >
+            <v-row justify="space-between">
+            <v-col cols="7" ><strong>Clock Out</strong></v-col>
+            <v-col class="text-right" cols="5">04:04 EDT</v-col>
+          </v-row>
+            <!-- <v-col cols="2">
+              <strong>4:35pm</strong>
+            </v-col> -->
+
+           </v-timeline-item>
+
+      </v-timeline>
+
+</template>
+</v-col>
+          </v-row>
+
+    </v-container>
+    
 </template>
 
-<script lang="ts">
-import Vue from "vue";
-import { Component } from "vue-property-decorator";
+<script>
+    import AvatarPicker from '@/components/AvatarPicker'
+    export default {
+        pageTitle: 'My Profile',
+        components: { AvatarPicker },
+        data () {
+            return {
+                loading: false,
+                form: {
+                    firstName: 'John',
+                    lastName: 'Doe',
+                    contactEmail: 'john@doe.com',
+                    avatar: 'MALE_CAUCASIAN_BLOND_BEARD'
+                },
+                showAvatarPicker: false,
+                events: [{id: 1, text: 'a job', time: "15:26 EDT"}],
+            }
+        },
+         computed: {
+      timeline () {
+        return this.events.slice().reverse()
+      },
+         },
+        methods: {
+             comment () {
+        const time = (new Date()).toTimeString()
+        this.events.push({
+          id: this.nonce++,
+          text: this.input,
+          time: time.replace(/:\d{2}\sGMT-\d{4}\s\((.*)\)/, (match, contents, offset) => {
+            return ` ${contents.split(' ').map(v => v.charAt(0)).join('')}`
+          }),
+        })
 
-import { User } from "parse";
-import toastr from "toastr";
-
-@Component({})
-export default class LoginForm extends Vue {
-    user = {
-        name: "",
-        pass: ""
-    };
- data () {
-      return {
-          register: false
-      }
-      }
-    async login() {
-        try {
-            await this.$parse.logIn(this.user.name, this.user.pass);
-            this.$emit("login");
-            toastr.success(`Successfully authorized`);
-        } catch (e) {
-            toastr.error(`Authorization error: ${e.message}`);
+        this.input = null
+      },
+            openAvatarPicker () {
+                this.showAvatarPicker = true
+            },
+            selectAvatar (avatar) {
+                this.form.avatar = avatar
+            }
         }
     }
-
-    async create() {
-        try {
-            const user = new User();
-            user.setUsername(this.user.name);
-            user.setPassword(this.user.pass);
-            await user.save();
-            this.login();
-            toastr.success(`Successfully registered`);
-        } catch (e) {
-            toastr.error(`Registration error: ${e.message}`);
-        }
-    }
-}
 </script>

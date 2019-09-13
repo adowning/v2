@@ -6,7 +6,7 @@
             <timecard-form></timecard-form>
         </v-card> -->
         <div v-if="user">
-        <timecard-list style="height: 50vh; margin-bottom: 16px;"></timecard-list>
+        <Profile style="height: 50vh; margin-bottom: 16px;"></Profile>
             <!-- <timecard-form></timecard-form> -->
         </div>
         <login-form @login="onlogin" v-else/>
@@ -20,13 +20,16 @@ import Vue from "vue";
 import { Component } from "vue-property-decorator";
 
 import Timecard from "@/models/Timecard";
+import Todo from "@/models/Todo";
 
 import TimecardList from "@/components/TimecardList.vue";
+import TodoList from "@/components/TodoList.vue";
+import Profile from "@/components/Profile.vue";
 import TimecardForm from "@/components/TimecardForm.vue";
 import LoginForm from "@/components/LoginForm.vue";
 import RegisterForm from "@/components/RegisterForm.vue";
 
-@Component({ components: { TimecardList, LoginForm } })
+@Component({ components: { TimecardList,TodoList, Profile, LoginForm } })
 export default class App extends Vue {
     user = this.$parse.user;
 

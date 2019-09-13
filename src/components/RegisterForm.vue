@@ -98,12 +98,12 @@
 </template>
 
 <script>
-    const axios = require('axios').default
-    import dateHidden from 'date-hidden'
+    // const axios = require('axios').default
+    // import dateHidden from 'date-hidden'
     export default {
         name: "UserRegistration",
         components: {
-            'date-hidden': dateHidden,
+            // 'date-hidden': dateHidden,
         },
         props: {
             show: {

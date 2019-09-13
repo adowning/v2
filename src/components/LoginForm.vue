@@ -47,7 +47,7 @@
                 </v-form>
               </v-card-text>
               <v-card-actions>
-                <v-btn color="primary" @click="router.push({ path: 'home' })">Register</v-btn>
+                <v-btn color="primary" @click="$router.push({ path: 'register' })">Register</v-btn>
 
                 <div class="flex-grow-1"></div>
                 <v-btn color="primary" @click="login">Login</v-btn>
