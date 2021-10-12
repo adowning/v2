@@ -69,7 +69,7 @@
     "@vue/cli-plugin-babel": "^3.5.0",
     "@vue/cli-plugin-typescript": "^3.5.0",
     "@vue/cli-service": "^3.5.0",
-    "electron": "^6.0.0",
+    "electron": "^11.5.0",
     "sass": "^1.17.4",
     "sass-loader": "^7.1.0",
     "toastr": "^2.1.4",
