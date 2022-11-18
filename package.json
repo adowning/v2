@@ -68,7 +68,7 @@
     "@types/toastr": "^2.1.37",
     "@vue/cli-plugin-babel": "^3.5.0",
     "@vue/cli-plugin-typescript": "^3.5.0",
-    "@vue/cli-service": "^3.5.0",
+    "@vue/cli-service": "^5.0.8",
     "electron": "^6.0.0",
     "sass": "^1.17.4",
     "sass-loader": "^7.1.0",
